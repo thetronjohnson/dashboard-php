@@ -8,7 +8,4 @@
     if(!$db){
         echo "Error: unable to create connection to db\n";
     }
-    else{
-        echo "Success: Connected to db";
-    }
 ?>

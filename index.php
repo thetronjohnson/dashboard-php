@@ -14,7 +14,7 @@
 
     <div id="navbarExampleTransparentExample" class="navbar-menu">
       <div class="navbar-start">
-        <a class="navbar-item" href="/index.html">
+        <a class="navbar-item" href="index.php">
           Home
         </a>
       </div>
@@ -24,14 +24,14 @@
           <div class="field is-grouped">
 
             <p class="control">
-              <a class="button is-white" href="/index.html">
+              <a class="button is-white" href="index.php">
                 <span>Login</span>
               </a>
             </p>
 
 
             <p class="control">
-              <a class="button is-white" href="/signup.html">
+              <a class="button is-white" href="signup.php">
                 <span>Signup</span>
               </a>
             </p>
@@ -46,13 +46,18 @@
 
 require('db.php');
 session_start();
-if(isset($_REQUEST['username'])){
-  $username = stripslashes($_REQUEST['username']);
-  $password = stripslashes($_REQUEST['password']);
+if(isset($_POST['username'])){
+  $username = $_POST['username'];
+  #$username = cleanInput($db, $username);
+  $password = $_POST['password'];
+  #$password = cleanInput($db, $password);
 
-  $query = "SELECT * FROM `users` WHERE username='$username' AND  password='" . md5($password). "'";
+
+  $query = "SELECT * FROM users WHERE username='$username' AND  password='" . md5($password). "'";
   $result = pg_query($db,$query);
+
   $rows = pg_num_rows($result);
+
 
   if($rows==1){
       $_SESSION['username'] = $username;
